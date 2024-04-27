@@ -6,6 +6,7 @@ Este repositorio contiene un archivo de configuración para LVIM, mi editor de c
 
 - **plugins.vim**: Aquí encontrarás la lista de los plugins utilizados, así como su configuración asociada.
 - **keybindings.vim**: Contiene las combinaciones de teclas personalizadas que he definido para mejorar mi flujo de trabajo.
+- ![Lvim cap](lvim.png)
 
 ## Notas de Uso
 
