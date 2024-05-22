@@ -1,5 +1,3 @@
-reload("lnn.options")
-
 -- Enable powershell as your default shell
 vim.opt.shell = "pwsh.exe"
 vim.opt.shellcmdflag =
@@ -22,9 +20,7 @@ vim.g.clipboard = {
   },
 }
 
--- MY KEYMAPS -----------------------------------------------------------------
--- Agregar keymap para copiar con Ctrl+c
-vim.api.nvim_set_keymap('n', '<C-c>', '"+y', { noremap = true, silent = true })
+--NOTE: MY KEYMAPS -----------------------------------------------------------------
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 -- Agregar keymap para seleccionar todo el documento con Ctrl+a
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
@@ -42,7 +38,8 @@ lvim.keys.normal_mode["<A-n>"] = function()
   end
 end
 
---CUSTOM PLUGINS -----------------------------------------------------------------
+
+--NOTE: CUSTOM PLUGINS -----------------------------------------------------------------
 lvim.plugins = {
   --auto-save
   {
@@ -54,17 +51,38 @@ lvim.plugins = {
       -- or just leave it empty :)
     },
   },
-  { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = "kevinhwang91/promise-async"
+  },
+
   { "nvim-treesitter/nvim-treesitter-angular" },
+
+  {
+    "folke/todo-comments.nvim",
+    config = function()
+      require("todo-comments").setup {}
+    end
+  },
+  {
+    'VidocqH/lsp-lens.nvim'
+  },
+  {
+    "luckasRanarison/tailwind-tools.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = {} -- your configuration
+  },
+
 }
 
---CUSTOM PLUGINS CONFIG-----------------------------------------------
+--NOTE: CUSTOM PLUGINS CONFIG-----------------------------------------------
 -- visual folding config
 vim.o.foldcolumn = '1' -- '0' is not bad
 vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
+--FIX: angular
 
 -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
