@@ -25,7 +25,7 @@ vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 -- Agregar keymap para seleccionar todo el documento con Ctrl+a
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 -- Define una variable global para rastrear el estado de relativenumber
-lvim.relativenumber_enabled = false
+lvim.relativenumber_enabled = true
 
 -- Agrega un mapeo de teclas para alternar relativenumber al presionar Alt + n
 lvim.keys.normal_mode["<A-n>"] = function()
@@ -44,11 +44,9 @@ lvim.plugins = {
   --auto-save
   {
     "okuuva/auto-save.nvim",
-    cmd = "ASToggle",                         -- optional for lazy loading on command
-    event = { "InsertLeave", "TextChanged" }, -- optional for lazy loading on trigger events
+    cmd = "ASToggle",
+    event = { "InsertLeave", "TextChanged" },
     opts = {
-      -- your config goes here
-      -- or just leave it empty :)
     },
   },
   {
@@ -64,25 +62,24 @@ lvim.plugins = {
       require("todo-comments").setup {}
     end
   },
-  {
-    'VidocqH/lsp-lens.nvim'
-  },
+  --tailwind pick color
   {
     "luckasRanarison/tailwind-tools.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    opts = {} -- your configuration
+    opts = {}
   },
-
+  {
+    'VidocqH/lsp-lens.nvim'
+  },
 }
 
 --NOTE: CUSTOM PLUGINS CONFIG-----------------------------------------------
 -- visual folding config
-vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldcolumn = '0' -- '0' is not bad
 vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
---FIX: angular
 
 -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
@@ -123,3 +120,8 @@ require('ufo').setup({
   end
 })
 --  END VISUAL FOLDING CONFIG
+--PERF: plugin requeridos
+require'lsp-lens'.setup({})
+
+require("lvim.lsp.manager").setup("angularls")
+
