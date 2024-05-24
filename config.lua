@@ -25,6 +25,7 @@ vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 -- Agregar keymap para seleccionar todo el documento con Ctrl+a
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 -- Define una variable global para rastrear el estado de relativenumber
+vim.opt.relativenumber = true
 lvim.relativenumber_enabled = true
 
 -- Agrega un mapeo de teclas para alternar relativenumber al presionar Alt + n
@@ -70,6 +71,16 @@ lvim.plugins = {
   },
   {
     'VidocqH/lsp-lens.nvim'
+  },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
   },
 }
 
@@ -121,7 +132,15 @@ require('ufo').setup({
 })
 --  END VISUAL FOLDING CONFIG
 --PERF: plugin requeridos
-require'lsp-lens'.setup({})
+require 'lsp-lens'.setup({})
 
 require("lvim.lsp.manager").setup("angularls")
+-- PERF: java formater
+formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  {
+    command = "google-java-format",
+    filetypes = { "java" },
+  }
+}
 
