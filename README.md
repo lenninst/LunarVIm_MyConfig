@@ -1,4 +1,4 @@
-# Configuración LVIM
+# Lunarvim config.
 
 Este repositorio contiene un archivo de configuración para LVIM, mi editor de código preferido. Aunque admito que la estructura puede parecer un poco desordenada, te aseguro que funciona de manera efectiva.
 
