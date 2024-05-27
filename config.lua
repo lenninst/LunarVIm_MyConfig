@@ -65,8 +65,43 @@ lvim.plugins = {
       })
     end
   },
-{
+  --git
+  {
     "sindrets/diffview.nvim"
+  },
+
+  {
+    "vhyrro/luarocks.nvim",
+    priority = 1000, -- Queremos que este plugin cargue primero
+    config = true,   -- Esto ejecuta automáticamente `require("luarocks-nvim").setup()`
+  },
+  {
+    "nvim-neorg/neorg",
+    dependencies = { "vhyrro/luarocks.nvim" },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {},  -- Carga comportamiento predeterminado
+          ["core.concealer"] = {}, -- Añade íconos bonitos a tus documentos
+          ["core.dirman"] = {      -- Gestiona espacios de trabajo de Neorg
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
+  --markdown
+  {
+    'MeanderingProgrammer/markdown.nvim',
+    name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('render-markdown').setup({})
+    end,
   },
 }
 
