@@ -54,3 +54,6 @@ require('ufo').setup({
     return ''
   end
 })
+
+-- obsidian config 
+vim.o.conceallevel = 1  -- o 2 si prefieres
