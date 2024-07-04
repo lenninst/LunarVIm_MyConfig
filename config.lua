@@ -193,21 +193,92 @@ lvim.plugins = {
   {
     "dreamsofcode-io/nvim-nextjs",
   },
-  { "windwp/nvim-ts-autotag" },
+   --auto tag
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require('nvim-ts-autotag').setup({
+        opts = {
+          enable_close = true,          -- Cierre automático de etiquetas
+          enable_rename = true,         -- Renombrar pares de etiquetas automáticamente
+          enable_close_on_slash = false -- Cerrar automáticamente al escribir </
+        },
+        per_filetype = {
+          ["html"] = {
+            enable_close = false
+          }
+        }
+      })
+    end
+  },
   {
     "j-hui/fidget.nvim",
     opts = {
       -- options
     },
   },
+  --rename files
+  {
+    'tpope/vim-eunuch',
+    config = function()
+      vim.cmd('cnoreabbrev rename Rename')
+    end
+  },
+  -- themes
+  { "catppuccin/nvim",
+       name = "catppuccin", priority = 1000 },
+  -- react
+  -- Plugin para React con configuración
+  {
+    "mlaursen/vim-react-snippets",
+    config = function()
+      require("vim-react-snippets").lazy_load()
+    end,
+  },
+  -- conform code cleaner
+  {
+    'stevearc/conform.nvim',
+    opts = {},
+  },
+  --error traslator
+  { 'dmmulroy/ts-error-translator.nvim' },
+  {
+    "ray-x/lsp_signature.nvim",
+    config = function()
+      require "lsp_signature".setup({
+        -- …
+      })
+    end,
+  },
 
+  -- go definition
+  {
+    "rmagatti/goto-preview",
+    config = function()
+      require('goto-preview').setup {
+        width = 120,              -- Width of the floating window
+        height = 25,              -- Height of the floating window
+        default_mappings = false, -- Bind default mappings
+        debug = false,            -- Print debug information
+        opacity = nil,            -- 0-100 opacity level of the floating window where 100 is fully transparent.
+        post_open_hook = nil      -- A function taking two arguments, a buffer and a window to be ran as a hook.
+        -- You can use "default_mappings = true" setup option
+        -- Or explicitly set keybindings
+        -- vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>")
+        -- vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>")
+        -- vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
+      }
+    end
+  },
 }
 
 --PERF: plugin requeridos
 require 'lsp-lens'.setup({})
 
+--NOTE: angular confi
 require("lvim.lsp.manager").setup("angularls")
--- PERF: java formater
+
+-- NOTE: java formater
 formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   {
@@ -226,7 +297,7 @@ require("nvim-highlight-colors").setup {
   render = 'foreground',
 
   ---Set virtual symbol (requires render to be set to 'virtual')
-  virtual_symbol = '■',
+  virtual_symbol = '●',
 
   ---Set virtual symbol suffix (defaults to '')
   virtual_symbol_prefix = '',
@@ -274,3 +345,11 @@ require("copilot").setup({
   panel = { enabled = false },
 })
 
+--NOTE: traductor de error config
+require("ts-error-translator").setup()
+
+lvim.lsp.on_attach_callback = function(client, bufnr)
+  -- …
+  require "lsp_signature".on_attach()
+  -- …
+end
