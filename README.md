@@ -9,12 +9,17 @@ Este repositorio contiene un archivo de configuración para LVIM, mi editor de c
 - ![Lvim cap](lvim.png)
 
 ## Notas de Uso
-
+- sigue las instruccion de instalacion de Lunarvim
+  [ repositorio Lunarvim ](https://github.com/LunarVim/LunarVim.git)
+- copia el contenido de el directorio de configuraciones lunarvim
+  
 Si decides utilizar esta configuración, ten en cuenta lo siguiente:
 
 - **Compatibilidad**: Esta configuración ha sido probada en mi entorno personal y puede requerir ajustes adicionales para adaptarse a tus necesidades.
 - **Mantenimiento**: Estoy comprometido a mantener este repositorio actualizado y mejorar la organización con el tiempo.
 - **Feedback**: Si tienes sugerencias para mejorar la configuración o encuentras algún problema, no dudes en abrir un issue o enviar un pull request.
+
+
 
 ## Contribuciones
 
