@@ -24,6 +24,7 @@ vim.g.clipboard = {
 
 
 --NOTE: CUSTOM PLUGINS -----------------------------------------------------------------
+
 lvim.plugins = {
   --auto-save
   {
@@ -193,7 +194,7 @@ lvim.plugins = {
   {
     "dreamsofcode-io/nvim-nextjs",
   },
-   --auto tag
+  --auto tag
   {
     "windwp/nvim-ts-autotag",
     config = function()
@@ -225,8 +226,18 @@ lvim.plugins = {
     end
   },
   -- themes
-  { "catppuccin/nvim",
-       name = "catppuccin", priority = 1000 },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    -- priority = 1000,
+    config = function()
+      require("catppuccin").setup({
+        flavour = "mocha", -- puedes cambiarlo a "latte", "frappe", etc.
+      })
+      vim.cmd("colorscheme catppuccin")
+    end,
+  },
+  { "rose-pine/neovim",                       name = "rose-pine" },
   -- react
   -- Plugin para React con configuración
   {
@@ -268,6 +279,147 @@ lvim.plugins = {
         -- vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>")
         -- vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
       }
+    end
+  },
+  -- codium ia autocompletion
+  -- add this to the file where you setup your other plugins:
+  {
+    "monkoose/neocodeium",
+    -- event = "VeryLazy",
+    keys = { "<A-6>" },
+    config = function()
+      local neocodeium = require("neocodeium")
+      neocodeium.setup()
+      vim.keymap.set("i", "<A-f>", neocodeium.accept)
+    end,
+  },
+  -- move motions hop
+  {
+    'phaazon/hop.nvim',
+    branch = 'v2', -- optional but strongly recommended
+    event = "BufRead",
+    config = function()
+      -- you can configure Hop the way you like here; see :h hop-config
+      require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+    end
+  },
+  -- numb line
+  {
+    "nacro90/numb.nvim",
+    event = "BufRead",
+    config = function()
+      require("numb").setup {
+        show_numbers = true,    -- Enable 'number' for the window while peeking
+        show_cursorline = true, -- Enable 'cursorline' for the window while peeking
+      }
+    end,
+  },
+  -- auto documentation
+  {
+    "danymat/neogen",
+    config = true,
+    -- Uncomment next line if you want to follow only stable versions
+    version = "*"
+  },
+  -- rainbow parentheses
+  {
+    "p00f/nvim-ts-rainbow",
+    branch = "master",
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        rainbow = {
+          enable = true,
+          extended_mode = true, -- También resaltar otros tipos de delimitadores como html tags
+          max_file_lines = nil, -- No limit
+          colors = {
+            "#f2d5cf",
+            "#179299",
+            "#8aadf4",
+            "#ca9ee6",
+            "#91d7e3",
+            "#eebebe",
+            "#ca9ee6",
+          }
+        }
+      }
+    end
+  },
+  -- ventana quicfix
+  {
+    "kevinhwang91/nvim-bqf",
+    event = { "BufRead", "BufNew" },
+    config = function()
+      require("bqf").setup({
+        auto_enable = true,
+        preview = {
+          win_height = 12,
+          win_vheight = 12,
+          delay_syntax = 80,
+          border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
+        },
+        func_map = {
+          vsplit = "",
+          ptogglemode = "z,",
+          stoggleup = "",
+        },
+        filter = {
+          fzf = {
+            action_for = { ["ctrl-s"] = "split" },
+            extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
+          },
+        },
+      })
+    end,
+  },
+  -- minimap
+  {
+    'wfxr/minimap.vim',
+    build = "cargo install --locked code-minimap",
+    cmd = { "Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight" },
+    config = function()
+      vim.cmd("let g:minimap_width = 8")
+      vim.cmd("let g:minimap_auto_start = 1")
+      vim.cmd("let g:minimap_auto_start_win_enter = 1")
+    end,
+  },
+  -- mini  plugin complements
+  {
+    'echasnovski/mini.nvim',
+    version = '*'
+  },
+
+  -- sql manager
+  {
+    'kristijanhusak/vim-dadbod-ui',
+    dependencies = {
+      {
+        'tpope/vim-dadbod',
+        lazy = true
+      },
+      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+    },
+    cmd = {
+      'DBUI',
+      'DBUIToggle',
+      'DBUIAddConnection',
+      'DBUIFindBuffer',
+    },
+    init = function()
+      -- Your DBUI configuration
+      vim.g.db_ui_use_nerd_fonts = 1
+    end,
+  },
+  -- material incons
+  {
+    "nvim-tree/nvim-web-devicons",
+    event = { "VeryLazy" },
+    dependencies = {
+      "Allianaab2m/nvim-material-icon-v3",
+    },
+    config = function()
+      require("nvim-web-devicons").setup({
+        override = require("nvim-material-icon").get_icons()
+      })
     end
   },
 }
@@ -353,3 +505,33 @@ lvim.lsp.on_attach_callback = function(client, bufnr)
   require "lsp_signature".on_attach()
   -- …
 end
+
+-- rainbow config
+-- lvim.builtin.treesitter.rainbow.enable = true
+lvim.builtin.treesitter.rainbow.enable = true
+
+--NOTE: color por defecto
+-- Configuración para cargar el tema por defecto
+vim.cmd("colorscheme catppuccin")
+
+-- folder icons personalizados 
+require('nvim-material-icon').setup {
+  override = {
+    src = {
+      icon = "󰴉",  -- Icono para carpetas src
+      color = "#a6d189",
+      cterm_color = "185",
+      name = "Src"
+    },
+    interfaces = {
+      icon = "",  -- Icono para carpetas interfaces
+      color = "#007acc",
+      cterm_color = "32",
+      name = "Interfaces"
+    },
+    -- Agrega más configuraciones según sea necesario
+  },
+  color_icons = true,  -- Habilita colores personalizados
+  default = true,      -- Habilita íconos predeterminados si no se encuentra uno personalizado
+}
+

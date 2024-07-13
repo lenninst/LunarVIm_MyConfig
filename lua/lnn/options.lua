@@ -57,3 +57,53 @@ require('ufo').setup({
 
 -- obsidian config 
 vim.o.conceallevel = 1  -- o 2 si prefieres
+
+--NOTE: atajos para codium 
+-- Aceptar sugerencia completa
+vim.keymap.set("i", "<A-f>", function()
+    require("neocodeium").accept()
+end)
+
+-- Aceptar una palabra
+vim.keymap.set("i", "<A-w>", function()
+    require("neocodeium").accept_word()
+end)
+
+-- Aceptar una línea completa
+vim.keymap.set("i", "<A-a>", function()
+    require("neocodeium").accept_line()
+end)
+
+-- Ciclar o completar hacia adelante
+vim.keymap.set("i", "<A-e>", function()
+    require("neocodeium").cycle_or_complete()
+end)
+
+-- Ciclar o completar hacia atrás
+vim.keymap.set("i", "<A-r>", function()
+    require("neocodeium").cycle_or_complete(-1)
+end)
+
+-- Limpiar sugerencia
+vim.keymap.set("i", "<A-c>", function()
+    require("neocodeium").clear()
+end)
+
+--NOTE: atajos para hop 
+
+-- Agregar keymap para HopWord con Alt+w
+vim.api.nvim_set_keymap('n', '<A-q>', ':HopWord<CR>', { noremap = true, silent = true })
+
+-- Agregar keymap para HopChar1 con Alt+f
+vim.api.nvim_set_keymap('n', '<A-z>', ':HopChar1<CR>', { noremap = true, silent = true })
+
+-- Agregar keymap para HopLine con Alt+l
+vim.api.nvim_set_keymap('n', '<A-x>', ':HopLine<CR>', { noremap = true, silent = true })
+
+-- Agregar keymap para HopAnywhere con Alt+a
+vim.api.nvim_set_keymap('n', '<A-c>', ':HopAnywhere<CR>', { noremap = true, silent = true })
+
+-- Salta a un patrón específico
+vim.api.nvim_set_keymap('n', '<A-s>', ":HopPattern<CR>", { noremap = true, silent = true })
+
+
