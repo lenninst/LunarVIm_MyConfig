@@ -76,13 +76,14 @@ lvim.plugins = {
   -- neorg
   {
     "vhyrro/luarocks.nvim",
-    priority = 1000, -- Queremos que este plugin cargue primero
-    config = true,   -- Esto ejecuta automáticamente `require("luarocks-nvim").setup()`
+    priority = 999, -- Queremos que este plugin cargue primero
+    config = true,  -- Esto ejecuta automáticamente `require("luarocks-nvim").setup()`
   },
   {
     "nvim-neorg/neorg",
     dependencies = { "vhyrro/luarocks.nvim" },
-    version = "*",
+    -- version = "*",
+    version = "v7.0.0",
     config = function()
       require("neorg").setup {
         load = {
@@ -108,45 +109,6 @@ lvim.plugins = {
       vim.g.mkdp_filetypes = { "markdown" }
     end,
     ft = { "markdown" },
-  },
-  -- {
-  --   "lukas-reineke/headlines.nvim",
-  --   dependencies = "nvim-treesitter/nvim-treesitter",
-  --   config = true, -- or `opts = {}`
-  -- },
-  -- obsidian
-  {
-    "epwalsh/obsidian.nvim",
-    version = "*", -- recomendado, usar la última versión en vez del último commit
-    lazy = true,
-    ft = "markdown",
-    -- Cargar obsidian.nvim solo para archivos markdown en tu vault
-    event = {
-      -- Usar la ruta completa de tu vault
-      "BufReadPre D:/SyncFolders/obsidian_Sync/apuntes/**.md",
-      "BufNewFile D:/SyncFolders/obsidian_Sync/apuntes/**.md",
-    },
-    dependencies = {
-      -- Requerido
-      "nvim-lua/plenary.nvim",
-
-      -- Ver la lista completa de dependencias opcionales abajo 👇
-    },
-    opts = {
-      workspaces = {
-        {
-          name = "personal",
-          path = "D:/SyncFolders/obsidian_Sync/apuntes/personal",
-        },
-        {
-          name = "work",
-          path = "D:/SyncFolders/obsidian_Sync/apuntes/work",
-        },
-      },
-      ui = {
-        enable = false, -- Desactiva las características adicionales de la UI
-      },
-    },
   },
   {
     "brenoprata10/nvim-highlight-colors"
@@ -231,13 +193,32 @@ lvim.plugins = {
     name = "catppuccin",
     -- priority = 1000,
     config = function()
-      require("catppuccin").setup({
-        flavour = "mocha", -- puedes cambiarlo a "latte", "frappe", etc.
-      })
-      vim.cmd("colorscheme catppuccin")
+      -- require("catppuccin").setup({
+      --   flavour = "mocha", -- puedes cambiarlo a "latte", "frappe", etc.
+      -- })
+      -- -- vim.cmd("colorscheme catppuccin")
     end,
   },
-  { "rose-pine/neovim",                       name = "rose-pine" },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine"
+  },
+  {
+    'shaunsingh/nord.nvim',
+    name = "nord"
+  },
+
+  {
+    'embark-theme/vim',
+    name = 'embark'
+  },
+  {
+    'olivercederborg/poimandres.nvim',
+    config = function()
+      require('poimandres').setup {
+      }
+    end,
+  },
   -- react
   -- Plugin para React con configuración
   {
@@ -273,11 +254,6 @@ lvim.plugins = {
         debug = false,            -- Print debug information
         opacity = nil,            -- 0-100 opacity level of the floating window where 100 is fully transparent.
         post_open_hook = nil      -- A function taking two arguments, a buffer and a window to be ran as a hook.
-        -- You can use "default_mappings = true" setup option
-        -- Or explicitly set keybindings
-        -- vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>")
-        -- vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>")
-        -- vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
       }
     end
   },
@@ -371,17 +347,6 @@ lvim.plugins = {
       })
     end,
   },
-  -- minimap
-  {
-    'wfxr/minimap.vim',
-    build = "cargo install --locked code-minimap",
-    cmd = { "Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight" },
-    config = function()
-      vim.cmd("let g:minimap_width = 8")
-      vim.cmd("let g:minimap_auto_start = 1")
-      vim.cmd("let g:minimap_auto_start_win_enter = 1")
-    end,
-  },
   -- mini  plugin complements
   {
     'echasnovski/mini.nvim',
@@ -421,6 +386,10 @@ lvim.plugins = {
         override = require("nvim-material-icon").get_icons()
       })
     end
+  },
+  -- headtailwind sort tailwind classes
+  {
+    "steelsojka/headwind.nvim"
   },
 }
 
@@ -514,24 +483,24 @@ lvim.builtin.treesitter.rainbow.enable = true
 -- Configuración para cargar el tema por defecto
 vim.cmd("colorscheme catppuccin")
 
--- folder icons personalizados 
+-- folder icons personalizados
 require('nvim-material-icon').setup {
   override = {
     src = {
-      icon = "󰴉",  -- Icono para carpetas src
+      icon = "󰴉", -- Icono para carpetas src
       color = "#a6d189",
       cterm_color = "185",
       name = "Src"
     },
     interfaces = {
-      icon = "",  -- Icono para carpetas interfaces
+      icon = "", -- Icono para carpetas interfaces
       color = "#007acc",
       cterm_color = "32",
       name = "Interfaces"
     },
     -- Agrega más configuraciones según sea necesario
   },
-  color_icons = true,  -- Habilita colores personalizados
-  default = true,      -- Habilita íconos predeterminados si no se encuentra uno personalizado
+  color_icons = true, -- Habilita colores personalizados
+  default = true,     -- Habilita íconos predeterminados si no se encuentra uno personalizado
 }
 

@@ -55,8 +55,6 @@ require('ufo').setup({
   end
 })
 
--- obsidian config 
-vim.o.conceallevel = 1  -- o 2 si prefieres
 
 --NOTE: atajos para codium 
 -- Aceptar sugerencia completa
@@ -90,20 +88,22 @@ vim.keymap.set("i", "<A-c>", function()
 end)
 
 --NOTE: atajos para hop 
+-- Agregar keymap para HopWord con Space h w
+vim.api.nvim_set_keymap('n', '<Space>kw', ':HopWord<CR>', { noremap = true, silent = true })
 
--- Agregar keymap para HopWord con Alt+w
-vim.api.nvim_set_keymap('n', '<A-q>', ':HopWord<CR>', { noremap = true, silent = true })
+-- Agregar keymap para HopChar1 con Space h z
+vim.api.nvim_set_keymap('n', '<Space>kz', ':HopChar1<CR>', { noremap = true, silent = true })
 
--- Agregar keymap para HopChar1 con Alt+f
-vim.api.nvim_set_keymap('n', '<A-z>', ':HopChar1<CR>', { noremap = true, silent = true })
+-- Agregar keymap para HopLine con Space h l
+vim.api.nvim_set_keymap('n', '<Space>kv', ':HopVertical<CR>', { noremap = true, silent = true })
 
--- Agregar keymap para HopLine con Alt+l
-vim.api.nvim_set_keymap('n', '<A-x>', ':HopLine<CR>', { noremap = true, silent = true })
+-- Agregar keymap para HopAnywhere con Space h a
+vim.api.nvim_set_keymap('n', '<Space>ka', ':HopAnywhere<CR>', { noremap = true, silent = true })
 
--- Agregar keymap para HopAnywhere con Alt+a
-vim.api.nvim_set_keymap('n', '<A-c>', ':HopAnywhere<CR>', { noremap = true, silent = true })
+-- Salta a un patrón específico con Space h s
+vim.api.nvim_set_keymap('n', '<Space>ks', ":HopPattern<CR>", { noremap = true, silent = true })
 
--- Salta a un patrón específico
-vim.api.nvim_set_keymap('n', '<A-s>', ":HopPattern<CR>", { noremap = true, silent = true })
+-- Salta a un letra en en la linea
+vim.api.nvim_set_keymap('n', '<Space>kl', ":HopWordCurrentLine<CR>", { noremap = true, silent = true })
 
 
