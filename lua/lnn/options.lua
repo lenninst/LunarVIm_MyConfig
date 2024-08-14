@@ -55,6 +55,8 @@ require('ufo').setup({
   end
 })
 
+-- -- obsidian config 
+-- vim.o.conceallevel = 1  -- o 2 si prefieres
 
 --NOTE: atajos para codium 
 -- Aceptar sugerencia completa
@@ -105,5 +107,9 @@ vim.api.nvim_set_keymap('n', '<Space>ks', ":HopPattern<CR>", { noremap = true, s
 
 -- Salta a un letra en en la linea
 vim.api.nvim_set_keymap('n', '<Space>kl', ":HopWordCurrentLine<CR>", { noremap = true, silent = true })
+-- Salta a cualquier caracter en en la linea
+vim.api.nvim_set_keymap('n', '<Space>kj', ":HopAnywhereCurrentLine<CR>", { noremap = true, silent = true })
+-- Salta a inicio de cada linea
+vim.api.nvim_set_keymap('n', '<Space>ki', ":HopLineStart<CR>", { noremap = true, silent = true })
 
 

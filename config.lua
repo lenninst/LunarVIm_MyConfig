@@ -29,9 +29,17 @@ lvim.plugins = {
   --auto-save
   {
     "okuuva/auto-save.nvim",
-    cmd = "ASToggle",
-    event = { "InsertLeave", "TextChanged" },
+    cmd = "ASToggle",              -- opcional para carga perezosa en el comando
+    event = { "InsertLeave" },     -- opcional para carga perezosa en eventos de activación
     opts = {
+      immediate_save = false,      -- desactiva el guardado inmediato cuando el buffer pierde el enfoque
+      defer_save = true,           -- activa el guardado diferido
+      cancel_deferred_save = true, -- cancela el guardado diferido si vuelves a entrar en modo de inserción
+      write_all_buffers = false,   -- solo guarda el buffer actual, no todos los buffers
+      noautocmd = false,           -- ejecuta autocommands al guardar
+      lockmarks = false,           -- no bloquear marcas al guardar
+      debounce_delay = 15000,       -- retraso de 5 segundos para el guardado diferido
+      debug = false,               -- desactiva los mensajes de depuración
     },
   },
   {
@@ -82,8 +90,8 @@ lvim.plugins = {
   {
     "nvim-neorg/neorg",
     dependencies = { "vhyrro/luarocks.nvim" },
-    -- version = "*",
-    version = "v7.0.0",
+    version = "*",
+    -- version = "v7.0.0",
     config = function()
       require("neorg").setup {
         load = {
