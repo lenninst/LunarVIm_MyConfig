@@ -247,6 +247,16 @@ lvim.plugins = {
   {
     "olimorris/onedarkpro.nvim",
     -- priority = 1000, -- Ensure it loads first
+  {
+    'embark-theme/vim',
+    name = 'embark'
+  },
+  {
+    'olivercederborg/poimandres.nvim',
+    config = function()
+      require('poimandres').setup {
+      }
+    end,
   },
   -- react
   -- Plugin para React con configuración
@@ -531,6 +541,7 @@ lvim.plugins = {
     end
   },
  }
+}
 
 
 --PERF: plugin requeridos

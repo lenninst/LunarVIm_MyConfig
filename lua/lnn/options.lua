@@ -123,5 +123,3 @@ vim.api.nvim_set_keymap('n', '<F8>', ':VimtexView<CR>', { noremap = true, silent
 vim.api.nvim_set_keymap('n', '<F7>', ':VimtexTocToggle<CR>', { noremap = true, silent = true })
 -- Mapeo de F6 para compilar
 vim.api.nvim_set_keymap('n', '<F6>', ':VimtexCompile<CR>', { noremap = true, silent = true })
-
-
