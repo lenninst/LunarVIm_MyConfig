@@ -17,7 +17,7 @@ vim.opt.sidescrolloff = 8
 vim.opt.guifont = "JetBrainsMono Nerd Font:h12"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.smartcase = true
-vim.opt.smartindent = true
+vim.opt.smartindent = false
 vim.opt.termguicolors = true
 vim.opt.numberwidth = 2
 
@@ -225,8 +225,8 @@ lvim.plugins = {
     event = "InsertEnter",
     config = function()
       require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
+        suggestion = { enabled = true },
+        panel = { enabled = true },
       })
     end,
   },
@@ -276,6 +276,7 @@ lvim.plugins = {
     "vigoux/notifier.nvim",
     config = function()
       require 'notifier'.setup {
+        -- You configuration here
       }
     end
   },
@@ -701,23 +702,23 @@ lvim.builtin.treesitter.rainbow.enable = true
 -- Configuración para cargar el tema por defecto
 vim.cmd("colorscheme catppuccin")
 
--- folder icons personalizados
-require('nvim-material-icon').setup {
-  override = {
-    src = {
-      icon = "󰴉", -- Icono para carpetas src
-      color = "#a6d189",
-      cterm_color = "185",
-      name = "Src"
-    },
-    interfaces = {
-      icon = "",
-      color = "#007acc",
-      cterm_color = "32",
-      name = "Interfaces"
-    },
-    -- Agrega más configuraciones según sea necesario
-  },
-  color_icons = true,
-  default = true,
-}
+-- -- folder icons personalizados
+-- require('nvim-material-icon').setup {
+--   override = {
+--     src = {
+--       icon = "󰴉", -- Icono para carpetas src
+--       color = "#a6d189",
+--       cterm_color = "185",
+--       name = "Src"
+--     },
+--     interfaces = {
+--       icon = "",
+--       color = "#007acc",
+--       cterm_color = "32",
+--       name = "Interfaces"
+--     },
+--     -- Agrega más configuraciones según sea necesario
+--   },
+--   color_icons = true,
+--   default = true,
+-- }

@@ -84,3 +84,48 @@ lvim.builtin.which_key.mappings["A"] = {
   name = "  Auto-save", -- Nombre del grupo
   t = { "<cmd>ASToggle<CR>", "Toggle Auto-Save" }, -- Comando para alternar
 }
+
+--todo comments template
+lvim.builtin.which_key.mappings["o"] = {
+  name = "  TODO comments",
+  f = { ":lua InsertTodo('FIX')<CR>", " FIX: Solucionar errores o problemas" },
+  i = { ":lua InsertTodo('TODO')<CR>", " TODO: Tareas pendientes o cosas por hacer" },
+  h = { ":lua InsertTodo('HACK')<CR>", " HACK: Soluciones rápidas o temporales" },
+  w = { ":lua InsertTodo('WARN')<CR>", " WARN: Advertencias o posibles problemas" },
+  p = { ":lua InsertTodo('PERF')<CR>", "󰷴 PERF: Optimización de rendimiento" },
+  u = { ":lua InsertTodo('NOTE')<CR>", " NOTE: Notas o información adicional" },
+  t = { ":lua InsertTodo('TEST')<CR>", "󰙨 TEST: Para pruebas y verificaciones" },
+}
+
+
+function InsertTodo(keyword)
+  local line = vim.api.nvim_get_current_line()
+  local filetype = vim.bo.filetype
+  local new_line
+
+  if filetype == "lua" then
+    new_line = "-- " .. keyword .. ":  " .. line
+  elseif filetype == "python" then
+    new_line = "# " .. keyword .. ":  " .. line
+  elseif filetype == "cpp" or filetype == "c" then
+    new_line = "/* " .. keyword .. ":  */ " .. line
+  elseif filetype == "javascript" then
+    new_line = "/* " .. keyword .. ":  */ " .. line
+  elseif filetype == "html" or filetype == "xml" then
+    new_line = "<!-- " .. keyword .. ":  --> " .. line
+  else
+    new_line = "/* " .. keyword .. ":  */ " .. line
+  end
+
+  -- Cambia la línea actual con el comentario
+  vim.api.nvim_set_current_line(new_line)
+
+  -- Mueve el cursor dentro del bloque de comentario y entra en modo insert
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.api.nvim_win_set_cursor(0, {row, #new_line - 3}) -- Posiciona antes de `*/`
+  vim.cmd("startinsert")
+end
+
+
+
+
